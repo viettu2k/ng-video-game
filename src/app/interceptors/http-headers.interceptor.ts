@@ -5,7 +5,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class HttpHeadersInterceptor implements HttpInterceptor {
@@ -17,11 +17,13 @@ export class HttpHeadersInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     req = req.clone({
       setHeaders: {
-        'X-RapidAPI-Key': '73342c306amshfa9f756f721a2d1p1ef8fejsn4abf64d9c783',
-        'X-RapidAPI-Host': 'rawg-video-games-database.p.rapidapi.com',
+        'x-rapidapi-key': 'esGbwrm390mshS2BCl0RALxQRtZTp1W7sFMjsnyJlJzDXVkW0H',
+        'x-rapidapi-host': 'rawg-video-games-database.p.rapidapi.com',
+      },
+      setParams: {
+        key: 'e40e743af2c94b0c916a8aa618fb4473',
       },
     });
-
     return next.handle(req);
   }
 }
