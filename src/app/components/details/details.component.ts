@@ -1,3 +1,4 @@
+import { SpinnerService } from './../../services/spinner.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -18,7 +19,8 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -29,9 +31,11 @@ export class DetailsComponent implements OnInit, OnDestroy {
   }
 
   getGameDetails(id: string): void {
+    this.spinnerService.requestStarted();
     this.gameSub = this.httpService
       .getGameDetails(id)
       .subscribe((gameResp: Game) => {
+        this.spinnerService.requestEnded();
         this.game = gameResp;
         setTimeout(() => {
           this.gameRating = this.game.metacritic;

@@ -1,3 +1,4 @@
+import { SpinnerService } from 'src/app/services/spinner.service';
 import { HttpService } from './../../services/http.service';
 import { Game, APIResponse } from './../../models';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private httpService: HttpService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -32,9 +34,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   searchGames(sort: string, search?: string): void {
+    this.spinnerService.requestStarted();
     this.httpService
       .getGameList(sort, search)
       .subscribe((gameList: APIResponse<Game>) => {
+        this.spinnerService.requestEnded();
         this.games = gameList.results;
       });
   }
