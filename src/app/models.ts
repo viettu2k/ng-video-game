@@ -10,7 +10,7 @@ export interface Game {
   genres: Genre[];
   parent_platforms: ParentPlatform[];
   publicshers: Publishers[];
-  rating: Rating[];
+  ratings: Rating[];
   screenshots: Screenshots[];
   trailers: Trailer[];
 }
